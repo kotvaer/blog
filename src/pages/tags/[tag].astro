@@ -20,8 +20,67 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 <BaseLayout pageTitle={tag}>
-    <p>包含「{tag}」标签的文章</p>
-    <ul>
-        {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
-    </ul>
+    <div class="tag-page-header">
+        <p class="tag-description">包含「<span class="highlight-tag">{tag}</span>」标签的文章</p>
+    </div>
+    <div class="posts-container">
+        <ul class="post-list">
+            {posts.map((post: any) => (
+                <BlogPost
+                    url={post.url}
+                    title={post.frontmatter.title}
+                    description={post.frontmatter.description}
+                    pubDate={post.frontmatter.pubDate}
+                />
+            ))}
+        </ul>
+    </div>
 </BaseLayout>
+
+<style>
+    .tag-page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .tag-description {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    .highlight-tag {
+        font-weight: bold;
+        color: #ff9776;
+    }
+
+    .posts-container {
+        max-width: 1200px; /* 与博客列表页保持一致 */
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .post-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr; /* 移动端默认单列 */
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .post-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .post-list {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Dark Mode Styles */
+    html.dark .tag-description {
+        color: #a0aec0;
+    }
+</style>

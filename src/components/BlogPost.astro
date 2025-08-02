@@ -1,4 +1,72 @@
 ---
-const { title, url } = Astro.props;
+const { url, title, description, pubDate } = Astro.props;
 ---
-<li><a href={url}>{title}</a></li>
+<li class="blog-post-card">
+  <a href={url} class="card-link">
+    <div class="card-content">
+      <h4>{title}</h4>
+      <p class="date">{new Date(pubDate).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      <p class="description">{description}</p>
+    </div>
+  </a>
+</li>
+
+<style>
+  .blog-post-card {
+    list-style: none;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* 保证子元素不会溢出圆角 */
+  }
+
+  .blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1.5rem;
+  }
+
+  .card-content h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .card-content .date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .card-content .description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* Dark Mode Styles */
+  html.dark .blog-post-card {
+    background-color: #2d3748; /* 一个深色背景 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  html.dark .card-content h4 {
+    color: #e2e8f0; /* 浅色文字 */
+  }
+
+  html.dark .card-content .date {
+    color: #a0aec0; /* 稍暗的浅色文字 */
+  }
+
+  html.dark .card-content .description {
+    color: #cbd5e0; /* 更亮的文字 */
+  }
+</style>

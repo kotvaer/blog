@@ -3,37 +3,148 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
-    <p><em>{frontmatter.description}</em></p>
-    <p>{frontmatter.pubDate.toString().slice(0,10)}</p>
+  <article class="post">
+    <header class="post-header">
+      <!--<h1 class="title">{frontmatter.title}</h1>-->
+      <div class="meta">
+        <span class="author">作者：{frontmatter.author}</span>
+        <span class="date">发布于：{new Date(frontmatter.pubDate).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+      </div>
+      <p class="description">{frontmatter.description}</p>
+      {frontmatter.image && <img src={frontmatter.image.url} alt={frontmatter.image.alt} class="cover-image"/>}
+    </header>
 
-    <p>作者：{frontmatter.author}</p>
-
-    <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-
-    <div class= "tags">
-        {frontmatter.tags.map((tag: string) => (
-                <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-        ))}
+    <div class="post-content">
+      <slot />
     </div>
 
-    <slot />
+    <footer class="post-footer">
+      <div class="tags">
+        {frontmatter.tags.map((tag: string) => (
+          <a href={`/tags/${tag}`} class="tag">{tag}</a>
+        ))}
+      </div>
+    </footer>
+  </article>
 </BaseLayout>
+
 <style>
-    a {
-        color: #00539F;
-    }
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+  }
 
-    .tags {
-        display: flex;
-        flex-wrap: wrap;
-    }
+  .post-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
 
-    .tag {
-        margin: 0.25em;
-        border: dotted 1px #a1a1a1;
-        border-radius: .5em;
-        padding: .5em 1em;
-        font-size: 1.15em;
-        background-color: #F8FCFD;
-    }
+  .title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta .author {
+    margin-right: 1rem;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+
+  .cover-image {
+    width: auto; /* 允许图片保持原始宽度 */
+    max-width: 100%; /* 如果原始宽度大于容器，则缩小 */
+    height: auto; /* 保持图片比例 */
+    max-height: 400px;
+    object-fit: contain; /* 确保图片完整显示，而不是裁剪 */
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .post-content :global(h2) {
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-content :global(a) {
+    color: #ff9776;
+    text-decoration: none;
+  }
+  .post-content :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .post-content :global(img) {
+    max-width: 100%; /* 确保图片不会超出内容区域 */
+    height: auto; /* 保持图片比例 */
+    display: block; /* 避免图片底部有额外空间 */
+    margin: 1.5rem auto; /* 居中显示并添加上下边距 */
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .tag:hover {
+    background-color: #ff9776;
+    color: #fff;
+  }
+
+  /* Dark Mode Styles */
+  html.dark .meta, html.dark .description {
+    color: #a0aec0;
+  }
+  html.dark .post-content {
+    color: #cbd5e0;
+  }
+  html.dark .post-content :global(h2) {
+    border-color: #4a5568;
+  }
+  html.dark .tag {
+    background-color: #4a5568;
+    color: #e2e8f0;
+  }
+  html.dark .tag:hover {
+    background-color: #ff9776;
+    color: #1a202c;
+  }
 </style>

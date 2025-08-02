@@ -14,11 +14,32 @@ const { pageTitle } = Astro.props;
     </head>
     <body>
         <Header/>
-        <h1>{pageTitle}</h1>
-        <slot />
+        <main class="main-content">
+            <h1>{pageTitle}</h1>
+          <slot />
+        </main>
         <Footer/>
         <script>
             import "../scripts/menu.js";
         </script>
     </body>
 </html>
+
+<style>
+  .main-content {
+    max-width: 80ch; /* 限制内容最大宽度 */
+    margin: 0 auto; /* 居中显示 */
+    padding: 2rem 1rem;
+  }
+
+  .main-content h1 {
+    text-align: center; /* 居中标题文本 */
+    margin-bottom: 2rem; /* 增加标题下边距 */
+  }
+
+  @media (min-width: 768px) {
+    .main-content {
+      padding: 3rem 2rem;
+    }
+  }
+</style>

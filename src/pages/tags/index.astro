@@ -5,30 +5,53 @@ const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat
 const pageTitle = "标签索引";
 ---
 <BaseLayout pageTitle={pageTitle}>
-    <div class="tags">
+    <div class="tags-container">
         {tags.map((tag) => (
-                <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+                <a href={`/tags/${tag}`} class="tag-button">{tag}</a>
         ))}
     </div>
 </BaseLayout>
 
 
 <style>
-    a {
-        color: #00539F;
-    }
-
-    .tags {
+    .tags-container {
         display: flex;
         flex-wrap: wrap;
+        gap: 1rem; /* 增加标签之间的间距 */
+        justify-content: center; /* 居中显示标签 */
+        margin-top: 2rem;
     }
 
-    .tag {
-        margin: 0.25em;
-        border: dotted 1px #a1a1a1;
-        border-radius: .5em;
-        padding: .5em 1em;
-        font-size: 1.15em;
-        background-color: #F8FCFD;
+    .tag-button {
+        display: inline-block;
+        padding: 0.75em 1.5em; /* 调整内边距 */
+        border: 1px solid #ff9776; /* 边框颜色 */
+        border-radius: 25px; /* 更圆润的边角 */
+        background-color: #fff; /* 背景色 */
+        color: #ff9776; /* 文字颜色 */
+        text-decoration: none;
+        font-size: 1.1em;
+        font-weight: bold;
+        transition: all 0.3s ease; /* 添加过渡效果 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+    }
+
+    .tag-button:hover {
+        background-color: #ff9776; /* 悬停背景色 */
+        color: #fff; /* 悬停文字颜色 */
+        transform: translateY(-3px); /* 悬停上浮效果 */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 悬停阴影 */
+    }
+
+    /* Dark Mode Styles */
+    html.dark .tag-button {
+        background-color: #2d3748; /* 暗黑模式背景 */
+        color: #ff9776; /* 暗黑模式文字颜色 */
+        border-color: #ff9776;
+    }
+
+    html.dark .tag-button:hover {
+        background-color: #ff9776;
+        color: #1a202c;
     }
 </style>

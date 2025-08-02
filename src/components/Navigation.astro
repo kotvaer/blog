@@ -2,7 +2,44 @@
 ---
 <div class="nav-links">
     <a href="/">首页</a>
-    <a href="/about/">关于</a>
-    <a href="/blog/">博客</a>
-    <a href="/tags/">标签</a>
+    <a href="/blog">博客</a>
+    <a href="/tags">标签</a>
+    <a href="/about">关于</a>
 </div>
+
+<style>
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 0.25rem;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #ff9776;
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after, .nav-links a:focus::after {
+        width: 100%;
+    }
+
+    /* Dark Mode */
+    html.dark .nav-links a {
+        color: #e2e8f0;
+    }
+
+    /* Mobile-specific adjustments are handled in Header.astro */
+</style>

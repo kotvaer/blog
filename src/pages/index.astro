@@ -1,7 +1,80 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = "首页";
+import Welcome from '../components/Welcome.astro';
+import BlogPost from '../components/BlogPost.astro';
+
+// 获取所有文章并按日期排序
+const allPosts = await Astro.glob('./posts/*.md');
+const latestPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()).slice(0, 3);
 ---
-<BaseLayout pageTitle={pageTitle}>
-	<h2>我超棒的博客副标题</h2>
+<BaseLayout>
+  <div class="hero-section">
+    <Welcome />
+  </div>
+
+  <div class="latest-posts-section">
+    <div class="container">
+      <h3>最新文章</h3>
+      <ul class="post-list">
+        {latestPosts.map((post) => (
+          <BlogPost
+            url={post.url}
+            title={post.frontmatter.title}
+            description={post.frontmatter.description}
+            pubDate={post.frontmatter.pubDate}
+          />
+        ))}
+      </ul>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .hero-section {
+    min-height: 100vh; /* 至少占据一个视口的高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box; /* 确保内边距不增加高度 */
+  }
+
+  .latest-posts-section {
+    background-color: transparent; /* 背景透明 */
+    padding: 3rem 0;
+    box-shadow: none; /* 移除阴影 */
+  }
+
+  .latest-posts-section .container {
+    max-width: 800px; /* 限制文章列表容器的最大宽度 */
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .latest-posts-section h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #333;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr; /* 始终单列 */
+    gap: 1.5rem; /* 调整间距 */
+  }
+
+  /* 移除多列布局的媒体查询 */
+
+  /* Dark Mode Adjustments */
+  html.dark .latest-posts-section {
+    background-color: transparent; /* 暗黑模式下也透明 */
+    box-shadow: none; /* 移除阴影 */
+  }
+
+  html.dark .latest-posts-section h3 {
+    color: #e2e8f0;
+  }
+</style>

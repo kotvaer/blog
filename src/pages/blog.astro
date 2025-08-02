@@ -1,15 +1,112 @@
 ---
-import '../styles/global.css';
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from '../components/BlogPost.astro';
 
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const allPosts = await Astro.glob('./posts/*.md');
+// 按日期倒序排序
+const sortedPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
 
-const pageTitle = "我的 Astro 学习博客"
+const pageTitle = "所有文章";
 ---
-<BaseLayout pageTitle = {pageTitle}>
-   <p>这是我的 Astro 学习笔记</p>
-   <ul>
-      {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
-   </ul>
+<BaseLayout pageTitle={pageTitle}>
+  <div class="container">
+    <p>在这里，你可以找到我所有的技术文章、学习笔记和想法。</p>
+    <div class="layout-controls">
+      <button id="toggle-layout-btn">切换布局</button>
+    </div>
+    <ul id="post-list" class="post-list layout-single">
+      {sortedPosts.map((post) => (
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={post.frontmatter.pubDate}
+        />
+      ))}
+    </ul>
+  </div>
 </BaseLayout>
+
+<style>
+  .container {
+    max-width: 1200px; /* 设置最大宽度 */
+    margin: 0 auto; /* 居中显示 */
+    padding: 0 1rem;
+  }
+
+  .layout-controls {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  #toggle-layout-btn {
+    background-color: #ff9776;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  #toggle-layout-btn:hover {
+    background-color: #e07b5e;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .post-list.layout-single {
+    grid-template-columns: 1fr; /* 单列布局 */
+  }
+
+  .post-list.layout-multi {
+    grid-template-columns: repeat(2, 1fr); /* 默认两列 */
+  }
+
+  @media (min-width: 1024px) {
+    .post-list.layout-multi {
+      grid-template-columns: repeat(3, 1fr); /* 大屏幕三列 */
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggle-layout-btn');
+    const postList = document.getElementById('post-list');
+
+    // Check for saved layout preference
+    const savedLayout = localStorage.getItem('blogLayout');
+    if (savedLayout) {
+      postList.classList.remove('layout-single', 'layout-multi');
+      postList.classList.add(savedLayout);
+    } else {
+      // Default to single layout if no preference is saved
+      postList.classList.add('layout-single');
+    }
+
+    toggleButton.addEventListener('click', () => {
+      if (postList.classList.contains('layout-single')) {
+        postList.classList.remove('layout-single');
+        postList.classList.add('layout-multi');
+        localStorage.setItem('blogLayout', 'layout-multi');
+      } else {
+        postList.classList.remove('layout-multi');
+        postList.classList.add('layout-single');
+        localStorage.setItem('blogLayout', 'layout-single');
+      }
+    });
+  });
+</script>

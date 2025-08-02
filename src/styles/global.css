@@ -4,11 +4,11 @@ html {
 }
 
 body {
-    margin: 0 auto;
+    margin: 0;
     width: 100%;
-    max-width: 80ch;
-    padding: 1rem;
+    padding: 0;
     line-height: 1.5;
+    color: #333; /* 默认文字颜色 */
 }
 
 * {
