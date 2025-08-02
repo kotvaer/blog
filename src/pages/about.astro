@@ -1,26 +1,50 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const pageTitle = "关于我";
+
+const identity = {
+  name: "蓝染",
+  zone: "中国",
+  occupation: "后端开发工程师",
+  hobbies: ["摄影", "旅游"],
+};
+
+const skills = ["Java", "SpringBoot", "Kotlin", "Python", "Rust", "Web3"];
+
+const skillColor = "navy"
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
 
-<Layout>
-	<body>
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/blog/">Blog</a>
+<BaseLayout pageTitle = {pageTitle}>
+      <style define:vars={{skillColor, fontWeight, textCase}}>
+          h1 {
+              color: purple;
+              font-size: 4rem;
+          }
+          .skill {
+              color: var(--skillColor);
+              font-weight: var(--fontWeight);
+              text-transform: var(--textCase);
+          }
+      </style>
 
-<h1>About Me</h1>
-<h2>... and my new Astro site!</h2>
-  <h1>My Astro Site</h1>
-  <h1>About Me</h1>
-  <h2>... and my new Astro site!</h2>
+    <h2>……和我的新 Astro 网站！</h2>
 
-  <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
+    <p>我正在学习 Astro 的入门教程。这是我网站上的第二个页面，也是我自己建立的第一页面！</p>
 
-  <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
-</body>
-</Layout>
+    <p>随着我完成更多教程，该站点将更新，所以请继续查看我的旅程将如何进行吧！</p>
 
+    <p>以下是关于我的几个事实：</p>
+    <ul>
+        <li>我的名字是{identity.name}.</li>
+        <li>我住在{identity.zone}。我的职业是{identity.occupation}。</li>
+        <li>爱好{identity.hobbies.toString()}</li>
+    </ul>
+    <p>技能：</p>
+    <ul>
+        {skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
+</BaseLayout>
