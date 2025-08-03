@@ -96,6 +96,11 @@ html.dark {
     color: #fff;
 }
 
+html.dark body,
+html.dark h1 {
+    color: #fff;
+}
+
 .dark .nav-links a {
     color: #fff;
 }

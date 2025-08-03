@@ -3,7 +3,7 @@ const avatarUrl = "/images/profile.jpeg";
 ---
 <div class="welcome">
   <img src={avatarUrl} alt="我的头像" class="avatar" />
-  <h1>你好，我是<a href="https://github.com/lanransblog" target="_blank">蓝染</a></h1>
+  <h1>你好，我是<a href="https://github.com/kotvaer" target="_blank">蓝染</a></h1>
   <p>
     一名后端开发工程师，对技术充满热情。我喜欢通过这个博客分享我的知识和经验。
   </p>
@@ -60,7 +60,9 @@ const avatarUrl = "/images/profile.jpeg";
     gap: 1rem;
   }
   .button, .button-secondary {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.8rem 1.5rem;
     border-radius: 6px;
     text-decoration: none;
