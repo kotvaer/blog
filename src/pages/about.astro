@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { AUTHOR_NAME } from '../utils/constants.js';
+import { AUTHOR_NAME, CONTACT_EMAIL } from '../utils/constants.js';
 
 const pageTitle = "关于我";
 
@@ -16,10 +16,19 @@ const skills = ["Java", "SpringBoot", "Kotlin", "Python", "Rust", "Web3"];
 const avatarUrl = "/images/profile.jpeg"; // 您的头像文件路径
 ---
 
-<BaseLayout pageTitle = {pageTitle}>
+<!--<BaseLayout>-->
+<BaseLayout>
   <div class="about-page-wrapper">
     <div class="profile-header">
       <img src={avatarUrl} alt="我的头像" class="avatar" />
+      <div class="contact-info">
+        <a href={`mailto:${CONTACT_EMAIL}`} class="contact-button">
+          Contact me
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 21h-24v-18h24v18zm-23-16.477v14.477h22v-14.477l-11 8.999-11-8.999zm21.084-2.523l-10.084 8.193-10.084-8.193h20.168z"/>
+          </svg>
+        </a>
+      </div>
       <h2 class="profile-name">你好，我是 {identity.name}！</h2>
       <p class="profile-tagline">一名{identity.occupation}，对技术充满热情。</p>
     </div>
@@ -66,6 +75,25 @@ const avatarUrl = "/images/profile.jpeg"; // 您的头像文件路径
     align-items: center; /* 确保所有子元素水平居中 */
     width: 100%; /* 确保占据可用宽度 */
     margin-bottom: 2rem;
+  }
+
+  .contact-info {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .contact-info p {
+    font-size: 1.15rem; /* 正文字体大小 */
+    color: #555; /* 正文字体颜色 */
+    margin-bottom: 0.5rem;
+    display: flex; /* 使p标签成为flex容器 */
+    align-items: center; /* 垂直居中文本和图标 */
+    justify-content: center; /* 水平居中 */
+    gap: 0.5rem; /* 文字和图标之间的间距 */
+  }
+
+  .contact-text {
+    transform: translateY(-2px); /* 微调文字向上移动 */
   }
 
   .avatar {
@@ -207,5 +235,44 @@ const avatarUrl = "/images/profile.jpeg"; // 您的头像文件路径
   html.dark .skill-tag:hover {
     background-color: #ff9776;
     color: #1a202c;
+  }
+
+  .contact-info {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .contact-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #ff9776;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .contact-button:hover {
+    background-color: #e07b5e;
+    transform: scale(1.05);
+  }
+
+  .contact-button svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentColor; /* Make SVG color match text color */
+  }
+
+  /* Dark Mode for contact-button */
+  html.dark .contact-button {
+    background-color: #ff9776;
+    color: #1a202c;
+  }
+
+  html.dark .contact-button:hover {
+    background-color: #e07b5e;
   }
 </style>
