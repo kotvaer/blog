@@ -1,5 +1,5 @@
 html {
-    background-color: #f1f5f9;
+    background: linear-gradient(to bottom right, #e0f2f7, #f0f4f8); /* 浅色渐变背景 */
     font-family: sans-serif;
 }
 
@@ -88,7 +88,7 @@ h1 {
 
 
 html.dark {
-    background-color: #0d0950;
+    background: linear-gradient(to bottom right, #1a202c, #2d3748); /* 深色渐变背景 */
     color: #fff;
 }
 
