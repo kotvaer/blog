@@ -1,5 +1,7 @@
 html {
-    background: linear-gradient(to bottom right, #e0f2f7, #f0f4f8); /* 浅色渐变背景 */
+    background-color: #F8F8F8; /* 简洁浅灰背景 */
+    background-image: linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
     font-family: sans-serif;
 }
 
@@ -88,7 +90,9 @@ h1 {
 
 
 html.dark {
-    background: linear-gradient(to bottom right, #1a202c, #2d3748); /* 深色渐变背景 */
+    background-color: #1A1A2E; /* 简洁深色背景 */
+    background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
     color: #fff;
 }
 
