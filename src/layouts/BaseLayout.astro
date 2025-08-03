@@ -26,7 +26,14 @@ const { pageTitle } = Astro.props;
 </html>
 
 <style>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
   .main-content {
+    flex-grow: 1;
     max-width: 80ch; /* 限制内容最大宽度 */
     margin: 0 auto; /* 居中显示 */
     padding: 2rem 1rem;
