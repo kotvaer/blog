@@ -1,5 +1,6 @@
 ---
 import Social from './Social.astro';
+import { AUTHOR_NAME } from '../utils/constants.js';
 const currentYear = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -11,7 +12,7 @@ const currentYear = new Date().getFullYear();
       <Social platform="email"  />
     </div>
     <div class="copyright">
-      &copy; {currentYear} 蓝染的博客. All rights reserved.
+      &copy; {currentYear} {AUTHOR_NAME}的博客. All rights reserved.
     </div>
   </div>
 </footer>

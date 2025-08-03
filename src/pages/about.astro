@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { AUTHOR_NAME } from '../utils/constants.js';
 
 const pageTitle = "关于我";
 
 const identity = {
-  name: "蓝染",
+  name: AUTHOR_NAME,
   zone: "中国",
   occupation: "后端开发工程师",
   hobbies: ["摄影", "旅游"],
@@ -33,7 +34,7 @@ const avatarUrl = "/images/profile.jpeg"; // 您的头像文件路径
       <section class="card details-section">
         <h3>关于我的几个事实：</h3>
         <ul>
-          <li>我的名字是 <span>{identity.name}</span>.</li>
+          <li>我的名字是 <span>{identity.name}</span>。</li>
           <li>我住在 <span>{identity.zone}</span>。</li>
           <li>我的职业是 <span>{identity.occupation}</span>。</li>
           <li>爱好 <span>{identity.hobbies.join('、')}</span>。</li>
